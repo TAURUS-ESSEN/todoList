@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: Bitter, 'Times New Roman', Times, serif;
+}
+
+button {
+    padding: 5px;
+}
+
+input {
+    border-radius: 5px;
+    border: 1px solid #C4DFDF;
+    padding: 5px;
+    height: 16px;
+}
+
+select {
+    border-radius: 5px;
+    border: 1px solid #C4DFDF;
+    padding: 5px;
+    height: 31px;
+}
+
+textarea {
+    padding: 5px;
+    border-radius: 5px;
+}
+
+label {
+    font-size: 0.8rem;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    background-color: #F8F6F4;
+    min-height: 100vh;
+    width: 100%;
+    line-height: 1.5;
+}
+
+.main {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main  div {
+    padding: 15px;
+}
+
+.main__left {
+    background-color: #E3F4F4;
+    width: 20%;    
+}
+
+.left__header {
+    height: 5%;
+} 
+
+.left__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 90%;
+    align-items: center;
+}
+
+.content__addTask {
+    border: 1px solid #C4DFDF;
+    border-radius: 15px;
+    background-color: #C4DFDF;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.button__addTask{
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #1b1b1b;
+    padding: 10px;
+}
+    
+.button__addTask:hover {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #B5EAEA;
+    color: #B5EAEA;
+}
+
+.button__addProjekt{
+    border-radius: 10px;
+    color: white;
+    transition: .2s linear;
+    background: #1b1b1b;
+    padding: 10px;
+}
+    
+.button__addProjekt:hover {
+    box-shadow: 0 0 0 2px white, 0 0 0 4px #B5EAEA;
+    color: #B5EAEA;
+    width: 100%;
+}
+
+.main__right {
+    background-color: #F8F6F4; 
+    width: 100%;
+}
+
+.right__header {
+    height: 5%;
+} 
+
+.filters {
+    display: flex;
+    gap: 10px;
+    background-color: #C4DFDF;
+    border-radius: 5px;
+}
+
+.filters button {
+    border-radius: 5px;
+    border: 0px;
+}
+
+.today {
+    background-color: #F38BA0;
+    font-weight: 600;
+}
+
+.projektTable {
+    width: 100%;
+    border: 1px solid #B5EAEA;
+    border-radius: 0 0 5px 5px;
+    padding: 5px;
+    border-spacing: 3px 3px;
+}
+table td {
+    padding: 5px;
+}
+
+th:nth-child(2) { width: 40%; }
+th:nth-child(3) { width: 50%; }
+
+.projektTable caption {
+    font-weight: 700;
+    background-color:#D2E9E9;
+    border-radius: 5px 5px 0 0;
+}
+
+.projektTable th {
+    text-align: left;
+}
+
+.taskNameHeader {
+    width:200px;
+}
+
+.taskDescHeader {
+    width:250px;
+}
+
+
+.projektTable tr:nth-child(even) {
+    background-color: #E3F4F4; 
+}
+.completed {
+text-decoration: line-through;
+}
+
+.taskDel {
+    background: url('/img/delete-forever.svg') no-repeat center;
+    width: 50px;
+    border: 0;
+    display: inline-flex; /* Чтобы содержимое не смещалось */
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.taskDel:hover {
+    background: url('/img/delete-forever.svg') no-repeat center;
+    transform: scale(1.3);
+}
+
+
+.taskEdit {
+    background: url('/img/pencil.svg') no-repeat center;
+    width: 50px;
+    border: 0; 
+     display: inline-flex; /* Чтобы содержимое не смещалось */
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.taskEdit:hover {
+    background: url('/img/pencil.svg') no-repeat center;
+    transform: scale(1.3);
+}
+
+.taskPriority {
+    background: url('/img/flag.svg') no-repeat center;
+    width: 50px;
+    border: 0; 
+    display: inline-flex; /* Чтобы содержимое не смещалось */
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.taskPriority:hover {
+    background: url('/img/flag.svg') no-repeat center;
+    transform: scale(1.3);
+}
+
+.wichtig {
+    background: url('/img/flag-rot.svg') no-repeat center;
+    width: 50px;
+    border: 0; 
+    display: inline-flex; /* Чтобы содержимое не смещалось */
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease-in-out;
+}
+
+.wichtig:hover {
+    background: url('/img/flag-rot.svg') no-repeat center;
+    transform: scale(1.3);
+}
+
