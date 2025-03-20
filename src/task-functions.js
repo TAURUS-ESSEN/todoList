@@ -3,6 +3,7 @@ import { savedProjekts } from "./dom.js";
 import { TaskConstructor } from "./class-constructor.js";
 import { drawTasksTable} from "./dom.js";
 
+
 export function createTask () {
     let taskName = document.getElementById("taskName"); 
     let taskDesc= document.getElementById("taskDesc");
@@ -12,7 +13,7 @@ export function createTask () {
     let taskStatus = "0";
     let date = document.getElementById("datepicker");
     
-    let newTask = new TaskConstructor (taskId, taskName.value, taskDesc.value, taskProjekt.value, taskPriority, taskStatus, date.value);
+    let newTask = new TaskConstructor (taskId, taskName.value, taskDesc.value,  taskPriority, taskStatus, date.value);
 
     const index = savedProjekts.findIndex(projekt => projekt.name === taskProjekt.value);
     savedProjekts[index].tasks.push(newTask);
