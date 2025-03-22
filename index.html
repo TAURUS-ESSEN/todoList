@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <script type="module" src="116c8977c78635a22cdb.js" defer></script>
+    <title>Todo List by Taurus</title>
+<script defer src="main.js"></script></head>
+<body>
+    <div class="wrapper">  
+        <div class="main">
+            <div class="main__left">
+                <div class="left__header"><h1>TODO List</h1></div>
+                <div class="left__content">
+                    <div class="content__addTask">  
+                        <label for="name">Task name*:</label>
+                        <input type="text" name="name" maxlength="40" id="taskName">
+                        <label for="projekt">Add to projekt:</label>
+                        <select name="projekt" id="projektSelector" >
+                        </select>
+                        <label for="name">Due Date:</label>
+                        <input type="text" name="datepicker" id="datepicker" class="datepicker">
+                        <label for="name">Description:</label>
+                        <textarea name="desc" id = "taskDesc" rows="5" placeholder="sometext" maxlength="50" required></textarea>
+                        <button class = "button__addTask" id="button__addTask">Add Task</button>
+                    </div>
+
+                    <div  class="content__addTask"><button  data-modal-window="myErstenModal" class="button__createProjekt" id="button__showCreateProjektForm">Create Projekt</button></div>
+                    
+                    <div data-modal-window="myErstenModal" class="modal"  id="modal_content">
+                        <div class="modal_content">
+                            <div class="modal_inner">
+                                <div class="modal_titel">
+                                    <h2>Add new projekt</h2>
+                                </div>
+                                <div class="close_modal_fenster">&times;</div>
+                            </div>     
+                            <div class="content__addTask">  
+                                <label for="name">Projekt name*:</label>
+                                <input type="text" name="name" maxlength="50" id="projektName">
+                                <label for="name">Description:</label>
+                                <textarea name="desc" id = "projektDesc" maxlength="150"  rows="5" placeholder="sometext" required></textarea>
+                                <button class = "button__createProjekt" id="button__createProjekt">Create Projekt</button>
+                            </div>
+                        </div>
+                    </div>
+
+                                
+                    <div data-modal-window="editProjektModal" class="modal"  id="modal_edit_content">
+                        <div class="modal_content">
+                            <div class="modal_inner">
+                                <div class="modal_titel">
+                                    <h2>Edit projekt</h2>
+                                </div>
+                                <div class="close_modal_fenster">&times;</div>
+                            </div>     
+                            <div class="content__addTask">  
+                                <label for="name">Projekt name*:</label>
+                                <input type="text" name="name" id="projektNameEdit" value="">
+                                <label for="name">Description:</label>
+                                <textarea name="desc" id = "projektDescriptionEdit" rows="5" maxlength="150"  placeholder="sometext" required></textarea>
+                                <div class="editProjectButtonsArea">
+                                    <button class = "button__saveProjektChanges" id="button__saveProjektChanges">Save changes</button>
+                                    <button class = "button__deleteProjekt" id="button__deleteProjekt"  >delete Projekt</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+                </div>
+                
+            </div>  
+            <div class="main__right">
+                <div class="right__header"> 
+                    <div class="filter">                        
+                        <button class="filter__all" id="filterAll">All tasks</button>
+                        <button class="filter__completed" id="filterCompleted">Completed</button>
+                        <button id="filter__today" class="filter__today">Today</button>
+                    </div>
+                </div>
+                <div class="right__content" id="right__content"></div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
