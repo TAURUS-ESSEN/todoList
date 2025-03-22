@@ -1,8 +1,8 @@
-import { savedProjekts } from "./dom.js";
+import { filters, savedProjekts, saveInLocalStorage } from "./index.js";
 import { projektConstructor } from "./class-constructor.js";
-import { drawTasksTable, drawProjektForm } from "./dom.js";
+import { drawProjektForm } from "./dom.js";
 
-export function schowProjektAddForm () {
+export function schowProjektAddForm() {
     const schowForm = document.getElementById("modal_content");
     schowForm.style.display = "block";
     schowForm.querySelector(".close_modal_fenster").addEventListener("click", ()=>{
@@ -10,63 +10,66 @@ export function schowProjektAddForm () {
     })
 }
 
-export function createProjekt () {
-
+export function createProjekt() {
     let projektName = document.getElementById("projektName"); 
     let projektDesc= document.getElementById("projektDesc");
     let projektId =  Date.now();
     let projektTasks = [];
+    if (projektName.value == '') { return alert("Projekt name field is empty");}
 
     let newProjekt = new projektConstructor (projektId, projektName.value, projektDesc.value, projektTasks);
     savedProjekts.push(newProjekt);
-    localStorage.setItem('savedProjekts', JSON.stringify(savedProjekts));
+    saveInLocalStorage(savedProjekts);
 
     const schowForm1 = document.querySelector(".modal");
     schowForm1.style.display = "none";  
 
     projektName.value = '';
     projektDesc.value = ''; 
-    drawTasksTable();
+    filters();
     drawProjektForm ();
 }
 
-export function projektEditor (event) {
+export function projektEditor(event) {
     const schowForm = document.getElementById("modal_edit_content");
     schowForm.style.display = "block";
 
-    const inputProjektName = document.getElementById("projektNameEdit");
-    const inputProjektDesc = document.getElementById("projektDescEdit");
-    const hiddenKeyProjekt = document.querySelector(".hiddenKeyProjekt");
+    let projektIndex = savedProjekts.findIndex(projekt => projekt.id === event.id);
 
-    inputProjektName.value = savedProjekts[event.dataset.projektindex].name;
-    inputProjektDesc.value = savedProjekts[event.dataset.projektindex].description;
-    hiddenKeyProjekt.id = event.dataset.projektindex;
+    const inputProjektName = document.getElementById("projektNameEdit"); 
+    const inputProjektDesc = document.getElementById("projektDescriptionEdit"); 
+    const saveProjektButton = document.getElementById("button__saveProjektChanges");
+    const deleteProjektButton = document.getElementById("button__deleteProjekt");
+    saveProjektButton.dataset.currentprojekt = projektIndex;
+    deleteProjektButton.dataset.currentprojekt = projektIndex;
 
+    inputProjektName.value = savedProjekts[projektIndex].name;
+    inputProjektDesc.value = savedProjekts[projektIndex].description; 
+   
     schowForm.querySelector(".close_modal_fenster").addEventListener("click", ()=>{
         schowForm.style.display = "none";
     })
 }
 
-export function saveProjektChanges() {
+export function saveProjektChanges(projektIndex) {
+    const inputProjektName = document.getElementById("projektNameEdit");
+    const inputProjektDescriptionEdit = document.getElementById("projektDescriptionEdit");  
+    if (inputProjektName.value == '') { return alert("Projekt name field is empty");}  
     const schowForm2 = document.getElementById("modal_edit_content");
     schowForm2.style.display = "none";  
-    const input1 = document.getElementById("projektNameEdit");
-    const input2 = document.getElementById("projektDescEdit");
-    const projektId = document.querySelector(".hiddenKeyProjekt");
-    savedProjekts[projektId.id].name = input1.value;
-    savedProjekts[projektId.id].description = input2.value;
-    localStorage.setItem('savedProjekts', JSON.stringify(savedProjekts));
-    drawTasksTable()
+    savedProjekts[projektIndex].name = inputProjektName.value;
+    savedProjekts[projektIndex].description = inputProjektDescriptionEdit.value;
+    saveInLocalStorage(savedProjekts);
+    filters();
 }
 
-export function deleteProjekt() {
+export function deleteProjekt(projektIndex) {
     const schowForm2 = document.getElementById("modal_edit_content");
     schowForm2.style.display = "none";  
-    const projektId = document.querySelector(".hiddenKeyProjekt");
-    console.log("удаляем id =" +projektId.id);
-    savedProjekts.splice([projektId.id],1);
-    localStorage.setItem('savedProjekts', JSON.stringify(savedProjekts));
-    drawTasksTable();
+
+    savedProjekts.splice(projektIndex,1);
+    saveInLocalStorage(savedProjekts);
+    filters();
     drawProjektForm ();
 }
 

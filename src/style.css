@@ -1,42 +1,62 @@
 @import url('https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,100..900;1,100..900&display=swap');
 
+:root {
+    --button-colorHover : #FFBCBC;
+    --button-color : #F38BA0;
+    --main-leftColor : #e0fafa;
+    --task-background : #B5EAEA;
+    --header-table : #e0fafa;
+    /* --button-color : #F38BA0;
+    --main-leftColor : #E3F4F4;
+    --task-background : #C4DFDF;
+    --header-table : #D2E9E9; */
+}
+
 * {
     margin: 0px;
     padding: 0px;
     font-family: Bitter, 'Times New Roman', Times, serif;
+    font-size: 1rem;
 }
 
 button {
     padding: 5px;
+    cursor: pointer;
+}
+
+h1 {
+    font-size: 2rem;
 }
 
 input {
     border-radius: 5px;
-    border: 1px solid #C4DFDF;
+    border: 0;
     padding: 5px;
-    height: 16px;
 }
 
 select {
     border-radius: 5px;
-    border: 1px solid #C4DFDF;
+    border: 0;
     padding: 5px;
-    height: 31px;
+    max-width: 200px; 
+    overflow: hidden; 
 }
 
 textarea {
     padding: 5px;
     border-radius: 5px;
+    border: 0;
+    margin-bottom: 5px;
 }
 
 label {
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 
 .wrapper {
     display: flex;
     flex-direction: column;
-    background-color: #F8F6F4;
+    background-color: #EDF6E5;
     min-height: 100vh;
     width: 100%;
     line-height: 1.5;
@@ -52,7 +72,7 @@ label {
 }
 
 .main__left {
-    background-color: #E3F4F4;
+    background-color: var(--main-leftColor);
     width: 20%;    
 
 }
@@ -72,40 +92,57 @@ label {
     top: 70px;
 }
 
+/*      TASK    BUTTONS    */
+
 .content__addTask {
-    border: 1px solid #C4DFDF;
+    border: 0;
     border-radius: 15px;
-    background-color: #C4DFDF;
+    background-color: var(--task-background);
     display: flex;
     flex-direction: column;
-    gap: 5px;
+}
+
+.content__addTask input, select {
+    margin-bottom: 15px;
 }
 
 .button__addTask{
     border-radius: 10px;
+    border: 0px;
     color: white;
     transition: .2s linear;
-    background: #1b1b1b;
+    background: var(--button-color);
+    width: 70%;
     padding: 10px;
+    margin: 5px auto 0 auto;
 }
     
 .button__addTask:hover {
-    box-shadow: 0 0 0 2px white, 0 0 0 4px #B5EAEA;
-    color: #B5EAEA;
+    font-weight: 700;
+    color: black;
+    background-color: var(--button-colorHover);
+    transform: scale(1.1);
+    transition: 0.5s;
 }
+
+/*      projekt      buttons      */
 
 .button__createProjekt{
     border-radius: 10px;
+    border: 0px;
     color: white;
     transition: .2s linear;
-    background: #1b1b1b;
+    background: var(--button-color);
     padding: 10px;
     width: 100px;
+    margin: 0 auto;
 }
     
 .button__createProjekt:hover {
-    box-shadow: 0 0 0 2px white, 0 0 0 4px #B5EAEA;
-    color: #B5EAEA;
+    transform: scale(1.1);
+    transition: 0.4s;
+    font-weight: 700;
+    color: black;
     width: 100%;
     width: 100px;
 }
@@ -125,10 +162,11 @@ label {
 }
     
 .button__saveProjektChanges:hover {
-    box-shadow: 0 0 0 2px white, 0 0 0 4px #B5EAEA;
-    color: #B5EAEA;
+    color: white;
     width: 100%;
     width: 100px;
+    transform: scale(1.1);
+    transition: 0.4s;
 }
 
 .button__deleteProjekt{
@@ -141,12 +179,13 @@ label {
 }
     
 .button__deleteProjekt:hover {
-    box-shadow: 0 0 0 2px white, 0 0 0 4px #B5EAEA;
-    color: #B5EAEA;
     width: 100%;
     width: 100px;
+    transform: scale(1.1);
+    transition: 0.4s;
 }
 
+/*      right    section    */
 
 .main__right {
     background-color: #F8F6F4; 
@@ -160,19 +199,29 @@ label {
 .filter {
     display: flex;
     gap: 10px;
-    background-color: #C4DFDF;
+    background-color: var(--task-background);
     border-radius: 5px;
 }
 
 .filter button {
     border-radius: 5px;
     border: 0px;
+    padding: 10px;
+    transition: 0.5s ease;
 }
 
-.filter__today {
+.filter button:hover {
+    color: black;
+    font-weight: 700;
+    transform: scale(1.1);
+    transition: 0.5s ease;
+}
+
+.filter__active{
     background-color: #F38BA0;
     font-weight: 600;
-}
+    color: white;
+} 
 
 .projektTable {
     width: 100%;
@@ -192,8 +241,7 @@ th:nth-child(6) { width: 2%; }
 th:nth-child(7) { width: 2%; }
 
 .projektTable .projektTable__header {
- 
-    background-color:#D2E9E9;
+    background-color: var(--header-table);
     border-radius: 5px 5px 0 0;
     padding: 5px;
 }
@@ -211,7 +259,7 @@ th:nth-child(7) { width: 2%; }
 }
 
 .projektTable tr:nth-child(even) {
-    background-color: #E3F4F4; 
+    background-color: var(--main-leftColor)
 }
 
 .completed {
@@ -238,7 +286,7 @@ text-decoration: line-through;
     background: url('/img/pencil.svg') no-repeat center;
     width: 50px;
     border: 0; 
-     display: inline-flex; /* Чтобы содержимое не смещалось */
+    display: inline-flex; /* Чтобы содержимое не смещалось */
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease-in-out;
@@ -253,7 +301,7 @@ text-decoration: line-through;
     background: url('/img/pencil.svg') no-repeat center;
     width: 50px;
     border: 0; 
-     display: inline-flex; /* Чтобы содержимое не смещалось */
+    display: inline-flex; /* Чтобы содержимое не смещалось */
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease-in-out;
@@ -310,7 +358,6 @@ text-decoration: line-through;
     background-color: rgba(0,0,0,0.3);
 }
 
-/* текст */
 .modal .modal_content {
     background-color: #fefefe;
     margin: 15% auto;
@@ -322,9 +369,8 @@ text-decoration: line-through;
     text-align: justify;
 }
 
-/*  крестик */
 .modal .modal_content .close_modal_fenster { 
-    color: #aaa;
+    color: #1e1d1d;
     font-size: 3rem;
     font-weight: bold;
     cursor: pointer;

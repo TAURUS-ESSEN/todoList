@@ -1,88 +1,105 @@
 'use strict';
-import { savedProjekts } from "./dom.js";
+import { savedProjekts, filters, saveInLocalStorage } from "./index.js";
 import { TaskConstructor } from "./class-constructor.js";
-import { drawTasksTable} from "./dom.js";
 
+function projektIndexFinder(projektId) {
+    let result = savedProjekts.findIndex(projekt => projekt.id === projektId);
+    return result;
+}
 
-export function createTask () {
+function taskIndexFinder(taskId, projektIndex) {
+    let result = savedProjekts[projektIndex].tasks.findIndex(taskid => taskid.id === taskId);
+    return result;
+}
+
+export function createTask() {
     let taskName = document.getElementById("taskName"); 
     let taskDesc= document.getElementById("taskDesc");
     let taskProjekt= document.getElementById("projektSelector");
+    let date = document.getElementById("datepicker");
     let taskId =  Date.now();
     let taskPriority = "0";
     let taskStatus = "0";
-    let date = document.getElementById("datepicker");
-    
+    if (taskName.value == '') { return alert('empty task name!')} 
     let newTask = new TaskConstructor (taskId, taskName.value, taskDesc.value,  taskPriority, taskStatus, date.value);
 
-    const index = savedProjekts.findIndex(projekt => projekt.name === taskProjekt.value);
-    savedProjekts[index].tasks.push(newTask);
-    localStorage.setItem('savedProjekts', JSON.stringify(savedProjekts));
+    const projektIndex = projektIndexFinder(taskProjekt.value);
 
-    drawTasksTable();
+    savedProjekts[projektIndex].tasks.push(newTask);
+    saveInLocalStorage(savedProjekts);
+
+    filters();
     taskName.value = '';
     taskDesc.value = '';
     taskProjekt = '';
 }
 
-export function deleteTask(id, projektid) {
-    let currentProjekt = savedProjekts[projektid].tasks;
-    const index = currentProjekt.findIndex(projekt => projekt.id === id);
-    currentProjekt.splice(index, 1);
-    localStorage.setItem('savedProjekts', JSON.stringify(savedProjekts));
-    drawTasksTable();
+export function deleteTask(taskid, projektid) {
+    const projektIndex = savedProjekts.findIndex(projekt => projekt.id === projektid);
+    let currentProjekt = savedProjekts[projektIndex].tasks;
+    const taskindex = currentProjekt.findIndex(task => task.id === taskid);
+    currentProjekt.splice(taskindex, 1);
+    saveInLocalStorage (savedProjekts);
+    filters();
 }
 
-export function editTask(id, projektId) {
-    const checkbox = document.getElementById(id);
+export function editTask(taskId, projektId) {
+    const checkbox = document.getElementById(taskId);
     const row = checkbox.closest("tr"); 
     const nameCell = row.querySelector("td:nth-child(2)"); 
     const descCell = row.querySelector("td:nth-child(3)");
-    const dateCell = row.querySelector("td:nth-child(5)");
-    const index = savedProjekts[projektId].tasks.findIndex(projekt => projekt.id === id);
+    const dateCell = row.querySelector("td:nth-child(5)");   
+    const projektIndex = projektIndexFinder(projektId);
+    const taskIndex = taskIndexFinder(taskId, projektIndex);
+    let currentProjektTask = savedProjekts[projektIndex].tasks[taskIndex];
 
-    nameCell.innerHTML = `<input type = "text" class = "test1" id = "test1" name = "test1" value="${savedProjekts[projektId].tasks[index].name}">`;
-    descCell.innerHTML = `<input type = "text" class = "test2" id = "test2"  name = "test2" value="${savedProjekts[projektId].tasks[index].description}">`;
-    dateCell.innerHTML = `<input type = "text"  class = "test3" id = "test3"  name = "test3" value="${savedProjekts[projektId].tasks[index].date}">`;
+    nameCell.innerHTML = `<input type = "text" id = "taskEditNameInput" value="${currentProjektTask.name}">`;
+    descCell.innerHTML = `<input type = "text" id = "taskEditNameDescription" value="${currentProjektTask.description}">`;
+    dateCell.innerHTML = `<input type = "text" id = "taskEditNameDate" value="${currentProjektTask.date}">`;
     event.target.textContent = "Save";
     event.target.classList.replace("button__taskEdit", "saveButton"); 
-    const btnSave = document.querySelector(".saveButton");
-    btnSave.addEventListener("click", () => saveChanges(id, projektId));
+    document.querySelector(".saveButton").addEventListener("click", () => saveChanges(taskId, projektIndex));
 }
 
-export function saveChanges(id,projektId) {
-    const input1 = document.getElementById("test1");
-    const input2 = document.getElementById("test2");
-    const input3 = document.getElementById("test3");
-    const index = savedProjekts[projektId].tasks.findIndex(projekt => projekt.id === id);
-    savedProjekts[projektId].tasks[index].name = input1.value;
-    savedProjekts[projektId].tasks[index].description = input2.value;
-    savedProjekts[projektId].tasks[index].date = input3.value;
-    localStorage.setItem('savedProjekts', JSON.stringify(savedProjekts));
-    drawTasksTable()
+export function saveChanges(taskId, projektIndex) {
+    const input1 = document.getElementById("taskEditNameInput");
+    const input2 = document.getElementById("taskEditNameDescription");
+    const input3 = document.getElementById("taskEditNameDate");
+    if (input1.value == '') { return alert('empty task name!')} 
+    const taskIndex = taskIndexFinder(taskId, projektIndex);
+    let currentProjektTask =  savedProjekts[projektIndex].tasks[taskIndex];
+    currentProjektTask.name = input1.value;
+    currentProjektTask.description = input2.value;
+    currentProjektTask.date = input3.value;
+    saveInLocalStorage (savedProjekts);
+    filters();
 }
 
-export function editPriorityStatus(id, projektId, priority) {  
-    const index = savedProjekts[projektId].tasks.findIndex(projekt => projekt.id === id);
-    (priority == 0) ? savedProjekts[projektId].tasks[index].priority = 1 : savedProjekts[projektId].tasks[index].priority = 0;
-    localStorage.setItem('savedProjekts', JSON.stringify(savedProjekts));
-    drawTasksTable()
+export function editPriorityStatus(taskId, projektId, priority) {  
+    const projektIndex = projektIndexFinder(projektId);
+    const taskIndex = taskIndexFinder(taskId, projektIndex);
+    let currentProjektTask = savedProjekts[projektIndex].tasks[taskIndex];
+    (priority == 0) ? currentProjektTask.priority = 1 : currentProjektTask.priority = 0;
+    saveInLocalStorage (savedProjekts);
+    filters();
 }
 
-export function editTaskStatus(id, projektId) {   
-    const checkbox = document.getElementById(id);
+export function editTaskStatus(taskId, projektId) { 
+    const checkbox = document.getElementById(taskId);
     const nearestTr = checkbox.closest("tr"); 
-    let currentProjekt = savedProjekts[projektId].tasks;
-    const index = currentProjekt.findIndex(projekt => projekt.id === id);
+    let projektIndex = projektIndexFinder(projektId);
+
+    let currentProjekt = savedProjekts[projektIndex].tasks;
+    const taskIndex = taskIndexFinder(taskId, projektIndex);
 
     if (checkbox.checked) { 
         nearestTr.classList.add("completed");
-        currentProjekt[index].status = '1';
-        localStorage.setItem('savedProjekts', JSON.stringify(savedProjekts));
+        currentProjekt[taskIndex].status = '1';
+        saveInLocalStorage (savedProjekts);
     } 
     else {
         nearestTr.classList.remove("completed");  
-        currentProjekt[index].status = '0';
-        localStorage.setItem('savedProjekts', JSON.stringify(savedProjekts));
+        currentProjekt[taskIndex].status = '0';
+        saveInLocalStorage (savedProjekts);
     } 
 }

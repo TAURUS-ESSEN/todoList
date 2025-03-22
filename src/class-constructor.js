@@ -1,8 +1,4 @@
 'use strict';
-export function Test(value) {
-    return value + 2;
-}
-
 export class TaskConstructor {
     constructor (taskid, taskName, taskDesc,   taskPriority, taskStatus, taskDate) {
     this.id = taskid.toString();
