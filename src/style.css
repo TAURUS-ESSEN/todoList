@@ -6,10 +6,6 @@
     --main-leftColor : #e0fafa;
     --task-background : #B5EAEA;
     --header-table : #e0fafa;
-    /* --button-color : #F38BA0;
-    --main-leftColor : #E3F4F4;
-    --task-background : #C4DFDF;
-    --header-table : #D2E9E9; */
 }
 
 * {
@@ -270,7 +266,7 @@ text-decoration: line-through;
     background: url('/img/delete-forever.svg') no-repeat center;
     width: 50px;
     border: 0;
-    display: inline-flex; /* Чтобы содержимое не смещалось */
+    display: inline-flex;  
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease-in-out;
@@ -286,7 +282,7 @@ text-decoration: line-through;
     background: url('/img/pencil.svg') no-repeat center;
     width: 50px;
     border: 0; 
-    display: inline-flex; /* Чтобы содержимое не смещалось */
+    display: inline-flex;  
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease-in-out;
@@ -301,7 +297,7 @@ text-decoration: line-through;
     background: url('/img/pencil.svg') no-repeat center;
     width: 50px;
     border: 0; 
-    display: inline-flex; /* Чтобы содержимое не смещалось */
+    display: inline-flex;  
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease-in-out;
@@ -316,7 +312,7 @@ text-decoration: line-through;
     background: url('/img/flag.svg') no-repeat center;
     width: 50px;
     border: 0; 
-    display: inline-flex; /* Чтобы содержимое не смещалось */
+    display: inline-flex; 
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease-in-out;
@@ -331,7 +327,7 @@ text-decoration: line-through;
     background: url('/img/flag-rot.svg') no-repeat center;
     width: 50px;
     border: 0; 
-    display: inline-flex; /* Чтобы содержимое не смещалось */
+    display: inline-flex; 
     align-items: center;
     justify-content: center;
     transition: transform 0.2s ease-in-out;
